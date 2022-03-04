@@ -1,28 +1,70 @@
-mar. 04, 2022 2:52:36 PM Main createLogFile
+mar. 04, 2022 8:36:31 PM Main openLogFile
 INFO: Teste de log
-mar. 04, 2022 2:52:36 PM Main createLogFile
+mar. 04, 2022 8:36:31 PM Main openLogFile
 INFO: Início do Log
-mar. 04, 2022 2:52:48 PM Main cadastrarCliente
+mar. 04, 2022 8:37:07 PM Main cadastrarCliente
 INFO: Cliente cadastrado: Cliente [codigo=1, nome=Denison, documento=12747144780, senha=1234, contas=[]]
-mar. 04, 2022 2:52:54 PM Main abrirConta
+mar. 04, 2022 8:37:22 PM Main fazerSaque
+INFO: Erro: Não foi possível encontrar a conta com a agência e número informados
+mar. 04, 2022 8:37:22 PM Main fazerSaque
+INFO: Main.buscarConta(Main.java:344)
+mar. 04, 2022 8:37:22 PM Main fazerSaque
+INFO: Main.fazerSaque(Main.java:290)
+mar. 04, 2022 8:37:22 PM Main fazerSaque
+INFO: Main.main(Main.java:37)
+mar. 04, 2022 8:37:37 PM Main fazerDeposito
+INFO: Erro: Não foi possível encontrar a conta com a agência e número informados
+mar. 04, 2022 8:37:37 PM Main fazerDeposito
+INFO: Main.buscarConta(Main.java:344)
+mar. 04, 2022 8:37:37 PM Main fazerDeposito
+INFO: Main.fazerDeposito(Main.java:229)
+mar. 04, 2022 8:37:37 PM Main fazerDeposito
+INFO: Main.main(Main.java:50)
+mar. 04, 2022 8:37:58 PM Main fazerTransferencia
+INFO: Erro: Não foi possível encontrar a conta com a agência e número informados
+mar. 04, 2022 8:37:58 PM Main fazerTransferencia
+INFO: Main.buscarConta(Main.java:344)
+mar. 04, 2022 8:37:58 PM Main fazerTransferencia
+INFO: Main.fazerTransferencia(Main.java:155)
+mar. 04, 2022 8:37:58 PM Main fazerTransferencia
+INFO: Main.main(Main.java:63)
+mar. 04, 2022 8:38:06 PM Main abrirConta
 INFO: Conta aberta: Conta [saldo=0.0, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
-mar. 04, 2022 2:52:58 PM Main abrirConta
-INFO: Conta aberta: Conta [saldo=0.0, limiteSaque=5, taxaSaque=5.00, taxaTransferencia=5.00, agencia=1, conta=2]
-mar. 04, 2022 2:53:14 PM Main fazerDeposito
-INFO: Tentativa de depósito na conta: Conta [saldo=0.0, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
-mar. 04, 2022 2:53:14 PM Main fazerDeposito
-INFO: Saldo antes do depósito: 0.0
-mar. 04, 2022 2:53:14 PM Main fazerDeposito
-INFO: Saldo após o depósito: 500.00
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Tentativa de transferência da conta: Conta [saldo=500.00, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Tentativa de transferência para conta: Conta [saldo=0.0, limiteSaque=5, taxaSaque=5.00, taxaTransferencia=5.00, agencia=1, conta=2]
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta originária antes da transferência: 500.00
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta destinatária antes da transferência: 0.0
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta originária depois da transferência: 400.00
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta destinatária depois da transferência: 100.00
+mar. 04, 2022 8:38:13 PM Main fazerTransferencia
+INFO: Erro: Não foi possível encontrar a conta com a agência e número informados
+mar. 04, 2022 8:38:13 PM Main fazerTransferencia
+INFO: Main.buscarConta(Main.java:344)
+mar. 04, 2022 8:38:13 PM Main fazerTransferencia
+INFO: Main.fazerTransferencia(Main.java:165)
+mar. 04, 2022 8:38:13 PM Main fazerTransferencia
+INFO: Main.main(Main.java:63)
+mar. 04, 2022 8:39:03 PM Main fazerSaque
+INFO: Tentativa de saque da conta: Conta [saldo=0.0, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
+mar. 04, 2022 8:39:03 PM Main fazerSaque
+INFO: Saldo antes do saque: 0.0
+mar. 04, 2022 8:39:03 PM Main fazerSaque
+INFO: Erro: O saldo é insuficiente para realizar a operação
+mar. 04, 2022 8:39:03 PM Main fazerSaque
+INFO: ContaCorrente.sacar(ContaCorrente.java:30)
+mar. 04, 2022 8:39:03 PM Main fazerSaque
+INFO: Main.fazerSaque(Main.java:304)
+mar. 04, 2022 8:39:03 PM Main fazerSaque
+INFO: Main.main(Main.java:37)
+mar. 04, 2022 8:39:19 PM Main main
+WARNING: A senha informada está incorreta
+mar. 04, 2022 8:39:19 PM Main main
+INFO: Main.fazerSaque(Main.java:317)
+mar. 04, 2022 8:39:19 PM Main main
+INFO: Main.main(Main.java:37)
+mar. 04, 2022 8:39:31 PM Main main
+WARNING: A senha informada está incorreta
+mar. 04, 2022 8:39:31 PM Main main
+INFO: Main.fazerDeposito(Main.java:248)
+mar. 04, 2022 8:39:31 PM Main main
+INFO: Main.main(Main.java:50)
+mar. 04, 2022 8:39:46 PM Main main
+WARNING: A senha informada está incorreta
+mar. 04, 2022 8:39:46 PM Main main
+INFO: Main.fazerTransferencia(Main.java:191)
+mar. 04, 2022 8:39:46 PM Main main
+INFO: Main.main(Main.java:63)

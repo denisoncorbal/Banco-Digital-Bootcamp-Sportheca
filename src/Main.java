@@ -19,46 +19,82 @@ public class Main {
 		int opcao = 0;
 		do {
 			inicio();
-			try{
-				opcao = Integer.parseInt(scan.nextLine());
-				switch(opcao) {
-					case 1: {
-						cadastrarCliente();
-						break;
-					}
+			
+			opcao = Integer.parseInt(scan.nextLine());
+			switch(opcao) {
+				case 1: {
+					cadastrarCliente();
+					break;
+				}
 					
-					case 2: {
-						abrirConta();
-						break;
-					}
+				case 2: {
+					abrirConta();
+					break;
+				}
 					
-					case 3: {
+				case 3: {
+					try {
 						fazerSaque();
-						break;
+					} catch (SenhaIncorretaException e) {
+						System.out.println(e.getMessage());
+						logger.warning(e.getMessage());
+						for(StackTraceElement s : e.getStackTrace()) {
+							logger.info(s.toString());
+						}
 					}
+					break;
+				}
 					
-					case 4: {
+				case 4: {
+					try {
 						fazerDeposito();
-						break;
+					} catch (SenhaIncorretaException e) {
+						System.out.println(e.getMessage());
+						logger.warning(e.getMessage());
+						for(StackTraceElement s : e.getStackTrace()) {
+							logger.info(s.toString());
+						}
 					}
+					break;
+				}
 					
-					case 5:{
+				case 5:{
+					try{
 						fazerTransferencia();
-						break;
 					}
-				}		
-			}
-			catch(Exception e) {
-				logger.warning(e.getMessage());
-				e.printStackTrace();
-				closeLogFile();
-				System.exit(1);
-			}
+					catch(SenhaIncorretaException e) {
+						System.out.println(e.getMessage());
+						logger.warning(e.getMessage());
+						for(StackTraceElement s : e.getStackTrace()) {
+							logger.info(s.toString());
+						}
+					}
+					break;
+				}
+					
+				case 6:{
+					capitalizarPoupanca();
+				}
+			}		
+		
 		}while(opcao != 0);
 		closeLogFile();
 		System.exit(0);
 	}
 	
+	private static void capitalizarPoupanca() {
+		for(Cliente c : banco.clientes) {
+			for(Conta con : c.getContas()) {
+				if(con instanceof ContaPoupanca) {		
+					logger.info("Conta: " + con.getConta());
+					logger.info("Saldo antes da capitalização: " + con.getSaldo());
+					((ContaPoupanca) con).capitalizar();
+					logger.info("Saldo depois da capitalização: " + con.getSaldo());
+				}
+			}
+		}
+	}
+
 	private static void closeLogFile() {
 		for(Handler handler : logger.getHandlers()) {
 			handler.close();
@@ -78,10 +114,14 @@ public class Main {
 
         } catch (SecurityException e) {
             logger.info("Exception:" + e.getMessage());
-            e.printStackTrace();
+            for(StackTraceElement s : e.getStackTrace()) {
+				logger.info(s.toString());
+			}
         } catch (IOException e) {
             logger.info("IO Exception:" + e.getMessage());
-            e.printStackTrace();
+            for(StackTraceElement s : e.getStackTrace()) {
+				logger.info(s.toString());
+			}
         }
         logger.info("Início do Log");
 	}
@@ -98,10 +138,11 @@ public class Main {
 		System.out.println("3 - Fazer saque");
 		System.out.println("4 - Fazer depósito");
 		System.out.println("5 - Fazer transferência");
+		System.out.println("6 - Capitalizar poupança");
 		System.out.println();
 	}
 	
-	private static void fazerTransferencia() {
+	private static void fazerTransferencia() throws SenhaIncorretaException{
 		System.out.println();
 		System.out.println("Bem vindo ao " + banco.getNome());
 		System.out.println();
@@ -109,37 +150,73 @@ public class Main {
 		int agenciaOriginaria = Integer.parseInt(scan.nextLine());
 		System.out.println("Digite o número da conta originaria: ");
 		int contaOriginaria = Integer.parseInt(scan.nextLine());
-		Conta conOriginaria = buscarConta(agenciaOriginaria, contaOriginaria); 
-		Cliente c = buscarCliente(conOriginaria);
-		System.out.println("Digite a agencia destinataria: ");
-		int agenciaDestinataria = Integer.parseInt(scan.nextLine());
-		System.out.println("Digite o número da conta destinataria: ");
-		int contaDestinataria = Integer.parseInt(scan.nextLine());
-		Conta conDestinataria = buscarConta(agenciaDestinataria, contaDestinataria);
-		System.out.println();
-		System.out.println("Digite o valor: ");		
-		BigDecimal valor = new BigDecimal(scan.nextLine());
-		
-		System.out.println("Digite a senha: ");
-		int senha = Integer.parseInt(scan.nextLine());
-		if(c.getSenha() == senha) {
-			logger.info("Tentativa de transferência da conta: " + conOriginaria.toString());
-			logger.info("Tentativa de transferência para conta: " + conDestinataria.toString());
-			logger.info("Saldo da conta originária antes da transferência: " + conOriginaria.getSaldo());
-			logger.info("Saldo da conta destinatária antes da transferência: " + conDestinataria.getSaldo());
-			conOriginaria.transferir(conDestinataria, valor);
-			System.out.println();
-			System.out.println("Transferência efetuada com sucesso");
-			logger.info("Saldo da conta originária depois da transferência: " + conOriginaria.getSaldo());
-			logger.info("Saldo da conta destinatária depois da transferência: " + conDestinataria.getSaldo());
-		}
-		else {
+		Conta conOriginaria = null;
+		try {
+			conOriginaria = buscarConta(agenciaOriginaria, contaOriginaria);
+			Cliente c = null;
+			try {
+				c = buscarCliente(conOriginaria);
+				System.out.println("Digite a agencia destinataria: ");
+				int agenciaDestinataria = Integer.parseInt(scan.nextLine());
+				System.out.println("Digite o número da conta destinataria: ");
+				int contaDestinataria = Integer.parseInt(scan.nextLine());
+				Conta conDestinataria = null;
+				try {
+					conDestinataria = buscarConta(agenciaDestinataria, contaDestinataria);
+					System.out.println();
+					System.out.println("Digite o valor: ");		
+					BigDecimal valor = new BigDecimal(scan.nextLine());
+					
+					System.out.println("Digite a senha: ");
+					int senha = Integer.parseInt(scan.nextLine());
+					if(c.getSenha() == senha) {
+						logger.info("Tentativa de transferência da conta: " + conOriginaria.toString());
+						logger.info("Tentativa de transferência para conta: " + conDestinataria.toString());
+						logger.info("Saldo da conta originária antes da transferência: " + conOriginaria.getSaldo());
+						logger.info("Saldo da conta destinatária antes da transferência: " + conDestinataria.getSaldo());
+						try {
+							conOriginaria.transferir(conDestinataria, valor);
+							System.out.println();
+							System.out.println("Transferência efetuada com sucesso");
+							logger.info("Saldo da conta originária depois da transferência: " + conOriginaria.getSaldo());
+							logger.info("Saldo da conta destinatária depois da transferência: " + conDestinataria.getSaldo());
+						} catch (SaldoInsuficienteException e) {
+							logger.info("Erro: " + e.getMessage());
+							for(StackTraceElement s : e.getStackTrace()) {
+								logger.info(s.toString());
+							}
+						}						
+					}
+					else {
+						throw new SenhaIncorretaException();
+					}
+				} catch (ContaNaoEncontradaException e1) {
+					System.out.println(e1.getMessage());
+					logger.info("Erro: " + e1.getMessage());
+					for(StackTraceElement s : e1.getStackTrace()) {
+						logger.info(s.toString());
+					}
+				}
+				
+			} catch (ClienteNaoEncontradoException e1) {
+				System.out.println(e1.getMessage());
+				logger.info("Erro: " + e1.getMessage());
+				for(StackTraceElement s : e1.getStackTrace()) {
+					logger.info(s.toString());
+				}
+			}
 			
-		}
+		} catch (ContaNaoEncontradaException e1) {
+			System.out.println(e1.getMessage());
+			logger.info("Erro: " + e1.getMessage());
+			for(StackTraceElement s : e1.getStackTrace()) {
+				logger.info(s.toString());
+			}
+		} 		
 		
 	}
 
-	private static void fazerDeposito() {
+	private static void fazerDeposito() throws SenhaIncorretaException {
 		System.out.println();
 		System.out.println("Bem vindo ao " + banco.getNome());
 		System.out.println();
@@ -147,28 +224,48 @@ public class Main {
 		int agencia = Integer.parseInt(scan.nextLine());
 		System.out.println("Digite o número da conta: ");
 		int conta = Integer.parseInt(scan.nextLine());		
-		Conta con = buscarConta(agencia, conta); 
-		Cliente c = buscarCliente(con);
-		System.out.println();
-		System.out.println("Digite o valor: ");		
-		BigDecimal valor = new BigDecimal(scan.nextLine());
-		
-		System.out.println("Digite a senha: ");
-		int senha = Integer.parseInt(scan.nextLine());
-		if(c.getSenha() == senha) {
-			logger.info("Tentativa de depósito na conta: " + con.toString());
-			logger.info("Saldo antes do depósito: " + con.getSaldo());
-			con.depositar(valor);
-			System.out.println();
-			System.out.println("Depositó efetuado com sucesso");
-			logger.info("Saldo após o depósito: " + con.getSaldo());
-		}
-		else {
+		Conta con = null;
+		try {
+			con = buscarConta(agencia, conta);
+			Cliente c = null;
+			try {
+				c = buscarCliente(con);
+				System.out.println();
+				System.out.println("Digite o valor: ");		
+				BigDecimal valor = new BigDecimal(scan.nextLine());
+				
+				System.out.println("Digite a senha: ");
+				int senha = Integer.parseInt(scan.nextLine());
+				if(c.getSenha() == senha) {
+					logger.info("Tentativa de depósito na conta: " + con.toString());
+					logger.info("Saldo antes do depósito: " + con.getSaldo());
+					con.depositar(valor);
+					System.out.println();
+					System.out.println("Depositó efetuado com sucesso");
+					logger.info("Saldo após o depósito: " + con.getSaldo());
+				}
+				else {
+					throw new SenhaIncorretaException();
+				}
+			} catch (ClienteNaoEncontradoException e) {
+				System.out.println(e.getMessage());
+				logger.info("Erro: " + e.getMessage());
+				for(StackTraceElement s : e.getStackTrace()) {
+					logger.info(s.toString());
+				}
+			}
 			
-		}
+		} catch (ContaNaoEncontradaException e) {
+			System.out.println(e.getMessage());
+			logger.info("Erro: " + e.getMessage());
+			for(StackTraceElement s : e.getStackTrace()) {
+				logger.info(s.toString());
+			}
+		} 
+		
 	}
 
-	private static Cliente buscarCliente(Conta con) {
+	private static Cliente buscarCliente(Conta con) throws ClienteNaoEncontradoException {
 		for(Cliente c : banco.clientes) {
 			for(Conta conta : c.contas) {
 				if(conta.equals(con)) {
@@ -177,10 +274,10 @@ public class Main {
 			}
 		}
 		
-		return null;
+		throw new ClienteNaoEncontradoException();
 	}
 
-	private static void fazerSaque() {		
+	private static void fazerSaque() throws SenhaIncorretaException {		
 		System.out.println();
 		System.out.println("Bem vindo ao " + banco.getNome());
 		System.out.println();
@@ -188,30 +285,54 @@ public class Main {
 		int agencia = Integer.parseInt(scan.nextLine());
 		System.out.println("Digite o número da conta: ");
 		int conta = Integer.parseInt(scan.nextLine());
-		Conta con = buscarConta(agencia, conta); 
-		Cliente c = buscarCliente(con);
-		System.out.println();
-		System.out.println("Digite o valor: ");		
-		BigDecimal valor = new BigDecimal(scan.nextLine());
-		
-		System.out.println("Digite a senha: ");
-		int senha = Integer.parseInt(scan.nextLine());
-		if(c.getSenha() == senha) {
-			logger.info("Tentativa de saque da conta: " + con.toString());
-			logger.info("Saldo antes do saque: " + con.getSaldo());
-			con.sacar(valor);
-			System.out.println();
-			System.out.println("Saque efetuado com sucesso");
-			logger.info("Saldo após o saque: " + con.getSaldo());
-			
-		}
-		else {
-			
-		}
-		
+		Conta con = null;
+		try {
+			con = buscarConta(agencia, conta);
+			Cliente c = null;
+			try {
+				c = buscarCliente(con);
+				System.out.println();
+				System.out.println("Digite o valor: ");		
+				BigDecimal valor = new BigDecimal(scan.nextLine());
+				
+				System.out.println("Digite a senha: ");
+				int senha = Integer.parseInt(scan.nextLine());
+				if(c.getSenha() == senha) {
+					logger.info("Tentativa de saque da conta: " + con.toString());
+					logger.info("Saldo antes do saque: " + con.getSaldo());
+					try {
+						con.sacar(valor);
+						System.out.println();
+						System.out.println("Saque efetuado com sucesso");
+						logger.info("Saldo após o saque: " + con.getSaldo());
+					} catch (SaldoInsuficienteException e) {
+						System.out.println(e.getMessage());
+						logger.info("Erro: " + e.getMessage());
+						for(StackTraceElement s : e.getStackTrace()) {
+							logger.info(s.toString());
+						}				
+					}			
+				}
+				else {
+					throw new SenhaIncorretaException();
+				}
+			} catch (ClienteNaoEncontradoException e1) {
+				System.out.println(e1.getMessage());
+				logger.info("Erro: " + e1.getMessage());
+				for(StackTraceElement s : e1.getStackTrace()) {
+					logger.info(s.toString());
+				}
+			}		
+		} catch (ContaNaoEncontradaException e2) {
+			System.out.println(e2.getMessage());
+			logger.info("Erro: " + e2.getMessage());
+			for(StackTraceElement s : e2.getStackTrace()) {
+				logger.info(s.toString());
+			}
+		}		
 	}
 
-	private static Conta buscarConta(int agencia, int conta) {				
+	private static Conta buscarConta(int agencia, int conta) throws ContaNaoEncontradaException {				
 		for(Cliente c : banco.clientes) {
 			for(Conta con : c.contas) {
 				if(con.getAgencia() == agencia && con.getConta() == conta) {
@@ -220,7 +341,7 @@ public class Main {
 			}
 		}
 		
-		return null;
+		throw new ContaNaoEncontradaException();
 	}
 
 	private static void abrirConta() {		

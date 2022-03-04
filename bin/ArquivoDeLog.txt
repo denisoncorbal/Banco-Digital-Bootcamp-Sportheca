@@ -1,28 +1,12 @@
-mar. 04, 2022 2:52:36 PM Main createLogFile
+mar. 04, 2022 8:12:59 PM Main openLogFile
 INFO: Teste de log
-mar. 04, 2022 2:52:36 PM Main createLogFile
+mar. 04, 2022 8:12:59 PM Main openLogFile
 INFO: Início do Log
-mar. 04, 2022 2:52:48 PM Main cadastrarCliente
-INFO: Cliente cadastrado: Cliente [codigo=1, nome=Denison, documento=12747144780, senha=1234, contas=[]]
-mar. 04, 2022 2:52:54 PM Main abrirConta
-INFO: Conta aberta: Conta [saldo=0.0, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
-mar. 04, 2022 2:52:58 PM Main abrirConta
-INFO: Conta aberta: Conta [saldo=0.0, limiteSaque=5, taxaSaque=5.00, taxaTransferencia=5.00, agencia=1, conta=2]
-mar. 04, 2022 2:53:14 PM Main fazerDeposito
-INFO: Tentativa de depósito na conta: Conta [saldo=0.0, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
-mar. 04, 2022 2:53:14 PM Main fazerDeposito
-INFO: Saldo antes do depósito: 0.0
-mar. 04, 2022 2:53:14 PM Main fazerDeposito
-INFO: Saldo após o depósito: 500.00
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Tentativa de transferência da conta: Conta [saldo=500.00, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Tentativa de transferência para conta: Conta [saldo=0.0, limiteSaque=5, taxaSaque=5.00, taxaTransferencia=5.00, agencia=1, conta=2]
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta originária antes da transferência: 500.00
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta destinatária antes da transferência: 0.0
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta originária depois da transferência: 400.00
-mar. 04, 2022 2:53:28 PM Main fazerTransferencia
-INFO: Saldo da conta destinatária depois da transferência: 100.00
+mar. 04, 2022 8:13:03 PM Main fazerSaque
+INFO: Erro: Não foi possível encontrar a conta com a agência e número informados
+mar. 04, 2022 8:13:03 PM Main fazerSaque
+INFO: Main.buscarConta(Main.java:295)
+mar. 04, 2022 8:13:03 PM Main fazerSaque
+INFO: Main.fazerSaque(Main.java:246)
+mar. 04, 2022 8:13:03 PM Main fazerSaque
+INFO: Main.main(Main.java:36)

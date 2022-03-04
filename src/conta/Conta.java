@@ -19,9 +19,9 @@ public abstract class Conta {
 	
 	public abstract void depositar(BigDecimal d);
 	
-	public abstract void sacar(BigDecimal d);
+	public abstract void sacar(BigDecimal d) throws SaldoInsuficienteException;
 	
-	public abstract void transferir(Conta c, BigDecimal v);
+	public abstract void transferir(Conta c, BigDecimal v) throws SaldoInsuficienteException;
 
 	public BigDecimal getSaldo() {
 		return saldo;
