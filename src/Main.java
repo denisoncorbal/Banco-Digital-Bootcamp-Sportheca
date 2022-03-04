@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -14,7 +15,7 @@ public class Main {
 	private static Logger logger = Logger.getLogger("BancoLog");
 
 	public static void main(String[] args) {	
-		createLogFile();
+		openLogFile();
 		int opcao = 0;
 		do {
 			inicio();
@@ -48,14 +49,24 @@ public class Main {
 				}		
 			}
 			catch(Exception e) {
+				logger.warning(e.getMessage());
 				e.printStackTrace();
+				closeLogFile();
 				System.exit(1);
 			}
 		}while(opcao != 0);
-		
+		closeLogFile();
+		System.exit(0);
 	}
 	
-	private static void createLogFile() {
+	private static void closeLogFile() {
+		for(Handler handler : logger.getHandlers()) {
+			handler.close();
+		}
+		
+	}
+
+	private static void openLogFile() {
 		
 		FileHandler fileHandler;
         try {
