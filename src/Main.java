@@ -71,9 +71,23 @@ public class Main {
 					}
 					break;
 				}
-					
+				
 				case 6:{
+					try {
+						imprimirExtrato();
+					} catch (SenhaIncorretaException e) {
+						System.out.println(e.getMessage());
+						logger.warning(e.getMessage());
+						for(StackTraceElement s : e.getStackTrace()) {
+							logger.info(s.toString());
+						}
+					}
+					break;
+				}
+					
+				case 7:{
 					capitalizarPoupanca();
+					break;
 				}
 			}		
 		
@@ -82,6 +96,46 @@ public class Main {
 		System.exit(0);
 	}
 	
+	private static void imprimirExtrato() throws SenhaIncorretaException{
+		System.out.println();
+		System.out.println("Bem vindo ao " + banco.getNome());
+		System.out.println();
+		System.out.println("Digite a agencia: ");
+		int agencia = Integer.parseInt(scan.nextLine());
+		System.out.println("Digite o número da conta: ");
+		int conta = Integer.parseInt(scan.nextLine());
+		Conta con = null;
+		try {
+			con = buscarConta(agencia, conta);
+			Cliente c = null;
+			try {
+				c = buscarCliente(con);								
+				System.out.println("Digite a senha: ");
+				int senha = Integer.parseInt(scan.nextLine());
+				if(c.getSenha() == senha) {
+					logger.info("Exibir extrato da conta: " + con.toString());					
+					c.imprimirExtrato(con);
+					System.out.println();					
+				}
+				else {
+					throw new SenhaIncorretaException();
+				}
+			} catch (ClienteNaoEncontradoException e1) {
+				System.out.println(e1.getMessage());
+				logger.info("Erro: " + e1.getMessage());
+				for(StackTraceElement s : e1.getStackTrace()) {
+					logger.info(s.toString());
+				}
+			}		
+		} catch (ContaNaoEncontradaException e2) {
+			System.out.println(e2.getMessage());
+			logger.info("Erro: " + e2.getMessage());
+			for(StackTraceElement s : e2.getStackTrace()) {
+				logger.info(s.toString());
+			}
+		}		
+	}
+
 	private static void capitalizarPoupanca() {
 		for(Cliente c : banco.clientes) {
 			for(Conta con : c.getContas()) {
@@ -138,7 +192,8 @@ public class Main {
 		System.out.println("3 - Fazer saque");
 		System.out.println("4 - Fazer depósito");
 		System.out.println("5 - Fazer transferência");
-		System.out.println("6 - Capitalizar poupança");
+		System.out.println("6 - Imprimir extrato");
+		System.out.println("7 - Capitalizar poupança");
 		System.out.println();
 	}
 	

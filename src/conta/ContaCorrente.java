@@ -43,4 +43,13 @@ public class ContaCorrente extends Conta{
 		c.saldo = c.saldo.add(deposito);
 	}
 
+	@Override
+	protected void imprimirExtrato() {
+		System.out.println("Tipo: Conta Corrente");
+		System.out.println("Agência: " + this.agencia);
+		System.out.println("Conta: " + this.conta);
+		System.out.println("Saldo: " + this.saldo);
+		
+	}
+
 }

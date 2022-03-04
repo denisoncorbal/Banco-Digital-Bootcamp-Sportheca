@@ -53,5 +53,7 @@ public abstract class Conta {
 				+ ", taxaTransferencia=" + taxaTransferencia + ", agencia=" + agencia + ", conta=" + conta
 				+ "]";
 	}
+
+	protected abstract void imprimirExtrato();
 }
 	

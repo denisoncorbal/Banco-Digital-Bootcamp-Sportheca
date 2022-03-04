@@ -1,12 +1,26 @@
-mar. 04, 2022 8:12:59 PM Main openLogFile
+mar. 04, 2022 8:53:10 PM Main openLogFile
 INFO: Teste de log
-mar. 04, 2022 8:12:59 PM Main openLogFile
+mar. 04, 2022 8:53:10 PM Main openLogFile
 INFO: Início do Log
-mar. 04, 2022 8:13:03 PM Main fazerSaque
+mar. 04, 2022 8:53:26 PM Main cadastrarCliente
+INFO: Cliente cadastrado: Cliente [codigo=1, nome=Denison Gonçalves Corbal, documento=12747144780, senha=1234, contas=[]]
+mar. 04, 2022 8:53:38 PM Main imprimirExtrato
 INFO: Erro: Não foi possível encontrar a conta com a agência e número informados
-mar. 04, 2022 8:13:03 PM Main fazerSaque
-INFO: Main.buscarConta(Main.java:295)
-mar. 04, 2022 8:13:03 PM Main fazerSaque
-INFO: Main.fazerSaque(Main.java:246)
-mar. 04, 2022 8:13:03 PM Main fazerSaque
-INFO: Main.main(Main.java:36)
+mar. 04, 2022 8:53:38 PM Main imprimirExtrato
+INFO: Main.buscarConta(Main.java:397)
+mar. 04, 2022 8:53:38 PM Main imprimirExtrato
+INFO: Main.imprimirExtrato(Main.java:107)
+mar. 04, 2022 8:53:38 PM Main imprimirExtrato
+INFO: Main.main(Main.java:77)
+mar. 04, 2022 8:53:43 PM Main abrirConta
+INFO: Conta aberta: Conta [saldo=0.0, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
+mar. 04, 2022 8:53:49 PM Main abrirConta
+INFO: Conta aberta: Conta [saldo=0.0, limiteSaque=5, taxaSaque=5.00, taxaTransferencia=5.00, agencia=1, conta=2]
+mar. 04, 2022 8:53:55 PM Main imprimirExtrato
+INFO: Exibir extrato da conta: Conta [saldo=0.0, limiteSaque=10, taxaSaque=10.00, taxaTransferencia=10.00, agencia=1, conta=1]
+mar. 04, 2022 8:53:55 PM Main capitalizarPoupanca
+INFO: Conta: 2
+mar. 04, 2022 8:53:55 PM Main capitalizarPoupanca
+INFO: Saldo antes da capitalização: 0.0
+mar. 04, 2022 8:53:55 PM Main capitalizarPoupanca
+INFO: Saldo depois da capitalização: 0.0000

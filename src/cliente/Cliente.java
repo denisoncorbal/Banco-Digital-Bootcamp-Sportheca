@@ -49,5 +49,7 @@ public abstract class Cliente {
 	public void setContas(List<Conta> contas) {
 		this.contas = contas;
 	}
+
+	protected abstract void imprimirExtrato(Conta con);
 	
 }

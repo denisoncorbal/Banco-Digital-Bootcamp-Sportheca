@@ -49,4 +49,12 @@ public class ContaPoupanca extends Conta{
 		this.saldo = this.saldo.multiply(TAXA_CAPITALIZACAO);
 	}
 
+	@Override
+	protected void imprimirExtrato() {
+		System.out.println("Tipo: Conta Poupança");
+		System.out.println("Agência: " + this.agencia);
+		System.out.println("Conta: " + this.conta);
+		System.out.println("Saldo: " + this.saldo);
+	}
+
 }
