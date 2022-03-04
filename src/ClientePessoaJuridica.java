@@ -1,4 +1,6 @@
 
 public class ClientePessoaJuridica extends Cliente {
-	private int cnpj;
+	public ClientePessoaJuridica() {
+		this.codigo = Cliente.CODIGO_SEQUENCIAL++;
+	}
 }

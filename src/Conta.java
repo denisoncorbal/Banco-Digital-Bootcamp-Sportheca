@@ -17,12 +17,41 @@ public abstract class Conta {
 	
 	protected int conta;
 	
-	protected Cliente cliente;
-	
 	public abstract void depositar(BigDecimal d);
 	
 	public abstract void sacar(BigDecimal d);
 	
 	public abstract void transferir(Conta c, BigDecimal v);
+
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
+	}
+		
+	public int getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(int agencia) {
+		this.agencia = agencia;
+	}
+
+	public int getConta() {
+		return conta;
+	}
+
+	public void setConta(int conta) {
+		this.conta = conta;
+	}
+	
+	@Override
+	public String toString() {
+		return "Conta [saldo=" + saldo + ", limiteSaque=" + limiteSaque + ", taxaSaque=" + taxaSaque
+				+ ", taxaTransferencia=" + taxaTransferencia + ", agencia=" + agencia + ", conta=" + conta
+				+ "]";
+	}
 }
 	

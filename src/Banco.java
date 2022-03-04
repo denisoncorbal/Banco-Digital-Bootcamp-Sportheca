@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Banco {
-		
-	List<Conta> contas = new ArrayList();
+public class Banco {		
 	
 	List<Cliente> clientes = new ArrayList();
 	
